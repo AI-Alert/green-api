@@ -1,0 +1,19 @@
+{
+  "name": "green-api",
+  "version": "1.0.0",
+  "description": "Данный проект является тестовым заданием компании Green-Api. Целью ТЗ является разработка механизма асинхронной обработки HTTP запросов с использованием очереди RabbitMQ и двумя микросервисами с реализацией логирования",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "amqplib": "^0.10.3",
+    "express": "^4.18.2",
+    "pino": "^8.14.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0"
+  }
+}
