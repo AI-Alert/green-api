@@ -3,11 +3,11 @@ const pino = require('pino');
 const sortArray = require('./functions/sort.function');
 const { EventEmitter } = require('events');
 
-
 const queue = 'tasks';
 const logger = pino();
 const eventEmitter = new EventEmitter();
 
+// Асинхронная функция для обработки входящей таски - сортировка входящего массива
 const processTask = async (task, msg) => {
     try {
         const unsortedArray = task;
@@ -18,7 +18,6 @@ const processTask = async (task, msg) => {
 
         logger.info('Sorted array:', sortedArray);
 
-        // await new Promise((resolve) => setTimeout(resolve, 3000));
         const result = { result: sortedArray };
 
         eventEmitter.emit('taskProcessed', result, msg);
@@ -30,6 +29,7 @@ const processTask = async (task, msg) => {
     }
 };
 
+// Добавление listener на событие taskProcessed - Отправка очереди и закрытие соединение с RabbitMQ
 eventEmitter.on('taskProcessed', async (result, msg) => {
     try {
         const connection = await amqp.connect('amqp://localhost');
@@ -52,6 +52,7 @@ eventEmitter.on('taskProcessed', async (result, msg) => {
     }
 });
 
+// Подключение к RabbitMQ, вывод сообщения из очереди и вызов функции-обработчика processTask()
 (async () => {
     try {
         const connection = await amqp.connect('amqp://localhost');

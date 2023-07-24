@@ -4,7 +4,7 @@ const swaggerOptions = {
         info: {
             title: 'M1 Microservice API',
             version: '1.0.0',
-            description: 'API documentation for M1 Microservice',
+            description: 'API документация для приложения',
         },
         servers: [
             {

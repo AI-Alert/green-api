@@ -12,6 +12,10 @@ app.use(express.json());
 
 const PORT = 3000;
 
+/**
+ *
+ * Swagger
+ */
 const swaggerSpec = swaggerJsdoc(swaggerConfig);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 

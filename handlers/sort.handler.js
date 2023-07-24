@@ -11,6 +11,8 @@ const queue = 'tasks';
         const data = req.body;
         const unsortedArray = data.numbers;
 
+        // Валидация входящего массива
+
         if (!isValidNumericArray(unsortedArray)) {
             return res.status(400).json({ error: 'Invalid input. Array should contain only numbers.' });
         }
@@ -22,6 +24,7 @@ const queue = 'tasks';
 
         await channel.assertQueue(queue, { durable: true });
 
+        //Отправка массива в очередь
         channel.sendToQueue(queue, Buffer.from(JSON.stringify(unsortedArray)), {
             persistent: true,
             replyTo: 'results',
@@ -30,6 +33,7 @@ const queue = 'tasks';
 
         res.status(202).json({ message: 'Task processing started...' });
 
+        //Закрытие соединения с RabbitMQ
         await closeRabbitMQConnection();
     } catch (e) {
         logger.error('Error processing task.', e);
